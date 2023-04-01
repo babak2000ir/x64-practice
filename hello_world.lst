@@ -1,0 +1,25 @@
+     1                                  bits 64
+     2                                  default rel
+     3                                  
+     4                                  segment .data
+     5 00000000 48656C6C6F20776F72-         msg db "Hello world!", 0xd, 0xa, 0
+     5 00000009 6C64210D0A00       
+     6                                  
+     7                                  segment .text
+     8                                  global main
+     9                                  extern ExitProcess
+    10                                  extern printf
+    11                                  extern _CRT_INIT
+    12                                  
+    13                                  main:
+    14 00000000 55                          push    rbp
+    15 00000001 4889E5                      mov     rbp, rsp
+    16 00000004 4883EC20                    sub     rsp, 32
+    17                                  
+    18 00000008 E8(00000000)                call    _CRT_INIT
+    19                                  
+    20 0000000D 488D0D(00000000)            lea     rcx, [msg]
+    21 00000014 E8(00000000)                call    printf
+    22                                  
+    23 00000019 4831C0                      xor     rax, rax
+    24 0000001C E8(00000000)                call    ExitProcess
